@@ -7,7 +7,6 @@ package com.example.hibernateTest.entity;
 
 */
 
-
 public interface UserMapping {
 
     String getID();

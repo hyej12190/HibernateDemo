@@ -25,10 +25,7 @@ public class User {
     @Column(name = "PWD")
     private String PWD;
 
-    // @Column(name = "GROUP_CD")
-    // private String GROUP_CD;
-
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="GROUP_CD")
     private UserGroup userGroup;
 }

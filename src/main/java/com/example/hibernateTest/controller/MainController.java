@@ -9,6 +9,7 @@ import com.example.hibernateTest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -33,13 +34,6 @@ public class MainController {
         // return userRepository.findAll(PageRequest.of(1,10));
         return userRepository.findAllBy();
     }
-
-
-    // @RequestMapping(path = "/users", method = { RequestMethod.GET })
-    // public Page<User> getAllUsers() {
-    //     return userRepository.findAll(new PageRequest(1,20));
-    // }
-
 
     /**
      * getUserGroupList 
@@ -75,9 +69,14 @@ public class MainController {
     /*
     * delete user
     */
-    // @RequestMapping(path = "/deleteUser", method = {RequestMethod.GET})
-    // public void deleteUser(User user){
-    //     return userRepository.delete(user);
-    // }
+    @RequestMapping(path = "/deleteUser", method = {RequestMethod.GET})
+    public void deleteUser(@RequestParam(value = "id") String id){
+        
+        System.out.println("id : " + id);
 
+        // using @Query
+        userRepository.deleteByUserId(id);
+
+        // userRepository.deleteById(id);
+    }
 }
