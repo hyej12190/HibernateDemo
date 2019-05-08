@@ -24,5 +24,4 @@ public class UserGroup {
    @Column(name = "USE_YN")
    private char USE_YN;
 
-   
 }

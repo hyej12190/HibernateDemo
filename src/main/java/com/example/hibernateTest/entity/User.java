@@ -25,7 +25,7 @@ public class User {
     @Column(name = "PWD")
     private String PWD;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name="GROUP_CD")
     private UserGroup userGroup;
 }

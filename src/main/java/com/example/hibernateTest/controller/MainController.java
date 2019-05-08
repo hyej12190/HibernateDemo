@@ -72,11 +72,10 @@ public class MainController {
     @RequestMapping(path = "/deleteUser", method = {RequestMethod.GET})
     public void deleteUser(@RequestParam(value = "id") String id){
         
-        System.out.println("id : " + id);
-
+        userRepository.deleteById(id);
+        
         // using @Query
-        userRepository.deleteByUserId(id);
+        // userRepository.deleteByUserId(id);
 
-        // userRepository.deleteById(id);
     }
 }
