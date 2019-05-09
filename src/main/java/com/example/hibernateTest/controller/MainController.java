@@ -57,8 +57,8 @@ public class MainController {
         Optional<UserGroup> userGroup = userGroupRepository.findById(groupCD);
         UserGroup userGroup1 = userGroup.get();
 
-        user.setID(request.getParameter("id"));
-        user.setPWD(request.getParameter("pwd"));   
+        user.setId(request.getParameter("id"));
+        user.setPwd(request.getParameter("pwd"));   
         user.setUserGroup(userGroup1);
 
         userRepository.save(user);
@@ -69,13 +69,10 @@ public class MainController {
     /*
     * delete user
     */
-    @RequestMapping(path = "/deleteUser", method = {RequestMethod.GET})
-    public void deleteUser(@RequestParam(value = "id") String id){
+    // @RequestMapping(path = "/deleteUser", method = {RequestMethod.GET})
+    // public void deleteUser(@RequestParam(value = "id") String id){
 
-        userRepository.deleteById(id);
+    //     userRepository.deleteById(id);
         
-        // using @Query
-        // userRepository.deleteByUserId(id);
-
-    }
+    // }
 }

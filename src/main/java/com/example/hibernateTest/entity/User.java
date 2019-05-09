@@ -11,19 +11,19 @@ public class User {
 
     @Id
     @Column(name = "ID")
-    private String ID;
+    private String id;
 
     @Column(name = "FIRST")
-    private String FIRST;
+    private String first;
 
     @Column(name = "LAST")
-    private String LAST;
+    private String last;
 
     @Column(name = "EMAIL")
-    private String EMAIL;
+    private String email;
 
     @Column(name = "PWD")
-    private String PWD;
+    private String pwd;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name="GROUP_CD")
