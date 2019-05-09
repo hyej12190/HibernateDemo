@@ -2,7 +2,6 @@ package com.example.hibernateTest.controller;
 
 import com.example.hibernateTest.entity.User;
 import com.example.hibernateTest.entity.UserGroup;
-import com.example.hibernateTest.entity.UserMapping;
 import com.example.hibernateTest.repository.UserGroupRepository;
 import com.example.hibernateTest.repository.UserRepository;
 
@@ -30,21 +29,15 @@ public class MainController {
     @Autowired
     public UserGroupRepository userGroupRepository;
 
-    // select All
-    // @RequestMapping(path = "/users", method = { RequestMethod.GET })
-    // public List<UserMapping> getAllUsers() {
-    //     return userRepository.findAllBy();
-    // }
-
-    // test paging
-    @RequestMapping(path = "/usersPaging", method = { RequestMethod.GET })
+    /** 
+     * Select all user / Paging
+    */
+    @RequestMapping(path = "/users", method = { RequestMethod.GET })
     public Page<User> getAllUsersPaging(@RequestParam(value = "page", defaultValue = "0") int page) {
-
-        return userRepository.findAll(PageRequest.of(page, 200));
+        return userRepository.findAll(PageRequest.of(page, 350));
     }
 
     /**
-     * getUserGroupList 
      * Main Page UserGroup List
      */
     @RequestMapping(path = "/userGroup", method = { RequestMethod.GET })
@@ -65,8 +58,7 @@ public class MainController {
         UserGroup userGroup1 = userGroup.get();
 
         user.setID(request.getParameter("id"));
-        user.setPWD(request.getParameter("pwd"));
-        
+        user.setPWD(request.getParameter("pwd"));   
         user.setUserGroup(userGroup1);
 
         userRepository.save(user);
@@ -79,7 +71,7 @@ public class MainController {
     */
     @RequestMapping(path = "/deleteUser", method = {RequestMethod.GET})
     public void deleteUser(@RequestParam(value = "id") String id){
-        
+
         userRepository.deleteById(id);
         
         // using @Query

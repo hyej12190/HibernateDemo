@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,7 +13,6 @@ import javax.persistence.Table;
 public class UserGroup {
 
    @Id
-   @GeneratedValue
    @Column(name = "GROUP_CD")
    private String GROUP_CD;
 

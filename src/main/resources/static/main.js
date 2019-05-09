@@ -1,12 +1,3 @@
-/**
- * Function readme
- * * It is normal
- * ! This is important
- * ? This is a function
- * TODO add a log later
- * @param name the name of the param
- */
-
 
 function getUser() {
   
@@ -14,7 +5,7 @@ function getUser() {
 
   $.ajax({
     type: "GET",
-    url: "/usersPaging",
+    url: "/users",
     async: true,
     data : {'page' : page},
     success: function(data) {
@@ -27,7 +18,6 @@ function getUser() {
                 + '</div>'
                 + '<table><tr><th>Index</th><th>ID</th><th>PWD</th><th>LAST</th><th>FIRST</th><th>GROUP CD</th><th>GROUP NM</th></tr>';
 
-
       html = userTableData(data, html);
       
       $(window).scroll(function(){
@@ -37,35 +27,26 @@ function getUser() {
           if (page < pageCount){
             $.ajax({
               type: "GET",
-              url: "/usersPaging",
+              url: "/users",
               async: true,
               data : {'page' : page},
               success: function(data, html){
+                html += '<table>';
                 html = userTableData(data, html);
   
               }
             });
           }
-
         }
       });
     },
     error: function(xhr, status, error) {},
     complete: function(data) {
-
-      if (page == data.totalPages){
-        let html1 = '</table>';
-        $("#userTable").append(html1);
-
-      }
-      
     }
   });
 }
 
-
 function userTableData(data, html){
-
   for (let index = 0; index < data.content.length; index++) {
     const element = data.content[index];
 
