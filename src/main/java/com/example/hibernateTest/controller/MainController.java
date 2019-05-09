@@ -7,6 +7,8 @@ import com.example.hibernateTest.repository.UserGroupRepository;
 import com.example.hibernateTest.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,10 +31,16 @@ public class MainController {
     public UserGroupRepository userGroupRepository;
 
     // select All
-    @RequestMapping(path = "/users", method = { RequestMethod.GET })
-    public List<UserMapping> getAllUsers() {
-        // return userRepository.findAll(PageRequest.of(1,10));
-        return userRepository.findAllBy();
+    // @RequestMapping(path = "/users", method = { RequestMethod.GET })
+    // public List<UserMapping> getAllUsers() {
+    //     return userRepository.findAllBy();
+    // }
+
+    // test paging
+    @RequestMapping(path = "/usersPaging", method = { RequestMethod.GET })
+    public Page<User> getAllUsersPaging(@RequestParam(value = "page", defaultValue = "0") int page) {
+
+        return userRepository.findAll(PageRequest.of(page, 200));
     }
 
     /**

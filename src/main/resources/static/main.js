@@ -9,34 +9,79 @@
 
 
 function getUser() {
+  
+  let page = 0;
+
   $.ajax({
     type: "GET",
-    url: "/users",
+    url: "/usersPaging",
     async: true,
+    data : {'page' : page},
     success: function(data) {
-      let html = '<div style="float:right; font-weight: bold; font-size: 16px;" >count : ' + data.length + '</div><br>'
+
+      const pageCount = data.totalPages
+
+      let html = '<div style="float:right; font-weight: bold; font-size: 16px;" >count : ' + data.content.length + '</div><br>'
                 + '<div style="float:right;">'
                 + '<button id = "delete" value = "delete" onclick="checkDeleteUser()">delete</button>'
                 + '</div>'
                 + '<table><tr><th>Index</th><th>ID</th><th>PWD</th><th>LAST</th><th>FIRST</th><th>GROUP CD</th><th>GROUP NM</th></tr>';
-      for (let index = 0; index < data.length; index++) {
-        const element = data[index];
 
-        html += '<tr><td><input type="checkbox" id = "' + element.id + '" value = "' + element.id + '"/></td>'
-              +'<td>' + element.id + '</td>' 
-              + '<td>' + element.pwd + '</td>'
-              + '<td>' + element.last + '</td>'
-              + '<td>' + element.first + '</td>'
-              + '<td>' + element.userGroup.group_CD + '</td>'
-              + '<td>' + element.userGroup.group_NM + '</td><tr>'
-      }
-      html += + '</table>';
-      $("#userTable").append(html);
+
+      html = userTableData(data, html);
+      
+      $(window).scroll(function(){
+        if($(window).scrollTop() >= $(document).height() - $(window).height()){
+          page++;
+          
+          if (page < pageCount){
+            $.ajax({
+              type: "GET",
+              url: "/usersPaging",
+              async: true,
+              data : {'page' : page},
+              success: function(data, html){
+                html = userTableData(data, html);
+  
+              }
+            });
+          }
+
+        }
+      });
     },
     error: function(xhr, status, error) {},
-    complete: function(data) {}
+    complete: function(data) {
+
+      if (page == data.totalPages){
+        let html1 = '</table>';
+        $("#userTable").append(html1);
+
+      }
+      
+    }
   });
 }
+
+
+function userTableData(data, html){
+
+  for (let index = 0; index < data.content.length; index++) {
+    const element = data.content[index];
+
+    html += '<tr><td><input type="checkbox" id = "' + element.id + '" value = "' + element.id + '"/></td>'
+          +'<td>' + element.id + '</td>' 
+          + '<td>' + element.pwd + '</td>'
+          + '<td>' + element.last + '</td>'
+          + '<td>' + element.first + '</td>'
+          + '<td>' + element.userGroup.group_CD + '</td>'
+          + '<td>' + element.userGroup.group_NM + '</td><tr>'
+  }
+  $("#userTable").append(html);
+
+  return html;
+}
+
 
 function getUserGroup() {
   $.ajax({    
