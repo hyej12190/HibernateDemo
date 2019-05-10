@@ -89,7 +89,7 @@ function checkDeleteUser(){
   
   if($("input:checkbox:checked").is(":checked") == true){
     $.ajax({
-      type: "GET",
+      type: "DELETE",
       url: "/deleteUser",
       data : {'id' : id},
       async: true,
