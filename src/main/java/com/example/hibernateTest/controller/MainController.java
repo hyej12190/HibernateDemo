@@ -69,10 +69,4 @@ public class MainController {
     /*
     * delete user
     */
-    // @RequestMapping(path = "/deleteUser", method = {RequestMethod.GET})
-    // public void deleteUser(@RequestParam(value = "id") String id){
-
-    //     userRepository.deleteById(id);
-        
-    // }
 }
