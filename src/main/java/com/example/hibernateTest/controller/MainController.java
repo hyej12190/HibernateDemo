@@ -1,7 +1,18 @@
 package com.example.hibernateTest.controller;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.example.hibernateTest.entity.LangPack;
+import com.example.hibernateTest.entity.TestEntity;
 import com.example.hibernateTest.entity.User;
 import com.example.hibernateTest.entity.UserGroup;
+import com.example.hibernateTest.repository.LangPackRepository;
+import com.example.hibernateTest.repository.TestRepository;
 import com.example.hibernateTest.repository.UserGroupRepository;
 import com.example.hibernateTest.repository.UserRepository;
 
@@ -13,13 +24,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 @RestController
 public class MainController {
 
@@ -28,6 +32,12 @@ public class MainController {
 
     @Autowired
     public UserGroupRepository userGroupRepository;
+
+    @Autowired
+    public LangPackRepository langPackRepository;
+
+    @Autowired
+    public TestRepository testRepository;
 
     /** 
      * Select all user / Paging
@@ -66,7 +76,19 @@ public class MainController {
         response.sendRedirect("/users");
     }
 
-    /*
-    * delete user
-    */
+    /**
+     * delete user
+     */
+    @RequestMapping(path = "/deleteUser", method = {RequestMethod.GET})
+    public void deleteUser(@RequestParam(value = "id") String id){
+        userRepository.deleteById(id);
+    }
+
+    /**
+     * Select all LangPack
+     */
+    @RequestMapping(path = "/langpack", method = RequestMethod.GET)
+    public List<LangPack> getLangPack() {
+        return langPackRepository.findAll();
+    }
 }
